@@ -14,7 +14,10 @@ mkdir build
 cd build
 cmake ..
 make
+```
 
+## Run the optimizer
+```bash
 # Run the code 
 ./human_optimization <test_folder> <json_file_with_data>
 
