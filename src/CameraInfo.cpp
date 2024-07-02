@@ -105,35 +105,32 @@ void CameraInfo::setDistCoeff(cv::Mat new_dist_coeff){
     this->dist_py_ = new_dist_coeff.at<float>(0,7);
 }
 
-bool CameraInfo::setParameters(const std::string& intrinsic_path){
+bool CameraInfo::setParameters(const CameraParams& camera_params){
 
     try {
-        YAML::Node intrinsic_config_file = YAML::LoadFile(intrinsic_path);
+        this->fx_ = camera_params.intrinsic.at<double>(0,0);
+        this->fy_ = camera_params.intrinsic.at<double>(1,1);
+        this->cx_ = camera_params.intrinsic.at<double>(0,2);
+        this->cy_ = camera_params.intrinsic.at<double>(1,2);
 
-        this->fx_ = intrinsic_config_file["fx"].as<float>();
-        this->fy_ = intrinsic_config_file["fy"].as<float>();
-        this->cx_ = intrinsic_config_file["cx"].as<float>();
-        this->cy_ = intrinsic_config_file["cy"].as<float>();
+        this->has_dist_coeff_ = 1;
 
-        this->has_dist_coeff_ = intrinsic_config_file["has_dist_coeff"].as<int>();
+        this->dist_k0_ = camera_params.dist.at<double>(0);
+        this->dist_k1_ = camera_params.dist.at<double>(1);
+        this->dist_px_ = camera_params.dist.at<double>(2);
+        this->dist_py_ = camera_params.dist.at<double>(3);
+        this->dist_k2_ = camera_params.dist.at<double>(4);
+        this->dist_k3_ = 0;
+        this->dist_k4_ = 0;
+        this->dist_k5_ = 0;
 
-        this->dist_k0_ = intrinsic_config_file["dist_k0"].as<float>();
-        this->dist_k1_ = intrinsic_config_file["dist_k1"].as<float>();
-        this->dist_px_ = intrinsic_config_file["dist_px"].as<float>();
-        this->dist_py_ = intrinsic_config_file["dist_py"].as<float>();
-        this->dist_k2_ = intrinsic_config_file["dist_k2"].as<float>();
-        this->dist_k3_ = intrinsic_config_file["dist_k3"].as<float>();
-        this->dist_k4_ = intrinsic_config_file["dist_k4"].as<float>();
-        this->dist_k5_ = intrinsic_config_file["dist_k5"].as<float>();
-
-        this->img_width_ = intrinsic_config_file["img_width"].as<int>();
-        this->img_height_ = intrinsic_config_file["img_height"].as<int>();
+        this->img_width_ = 1000;
+        this->img_height_ = 1002;
 
         return true;
     } catch (const YAML::Exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return false;
     }
-
 }
 

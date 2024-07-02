@@ -5,6 +5,7 @@
 #include <iostream>
 #include <yaml-cpp/yaml.h>
 #include <opencv2/opencv.hpp>
+#include "Reader.h"
 
 // Define the object CameraInfo which includes all the intrinsic parameters of the camera
 class CameraInfo{
@@ -26,7 +27,7 @@ public:
     explicit CameraInfo();
 
     // Set the intrinsic parameters of a Camera Info objects by reading from a yaml file
-    bool setParameters(const std::string& intrinsic_path);
+    bool setParameters(const CameraParams& camera_params);
 
     // Return fx
     [[nodiscard]] float getFx() const;
