@@ -1,0 +1,15 @@
+fx: 1145.05
+fy: 1143.78
+cx: 512.542
+cy: 515.451
+has_dist_coeff: 1
+dist_k0: -0.207099
+dist_k1: 0.247775
+dist_px: -0.00142447
+dist_py: -0.000975699
+dist_k2: -0.00307515
+dist_k3: 0
+dist_k4: 0
+dist_k5: 0
+img_width: 1000
+img_height: 1002
